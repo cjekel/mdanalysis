@@ -661,6 +661,8 @@ class Universe(object):
                   'residue': self._topology.n_residues,
                   'segment': self._topology.n_segments}
         logger.debug("_process_attr: Adding {0} to topology".format(attr))
+        # check the length of the Attr is correct for the level it targets
+        # optional check
         if (attr.per_object is not None and len(attr) != n_dict[attr.per_object]):
             raise ValueError('Length of {attr} does not'
                              ' match number of {obj}s.\n'

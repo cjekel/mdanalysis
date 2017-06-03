@@ -927,17 +927,12 @@ class TestAtomGroup(object):
         assert_equal("<Atom 1: AAA of type TypeA of resname RsA, resid 1 and segid SegA and altLoc A>", u.atoms[0].__repr__())
 
 class TestAttributeSetting(object):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
     @staticmethod
     def _check_setattr_fails(thing):
         assert_raises(AttributeError, setattr, thing, 'this', 'that')
 
     def test_setting_fail(self):
+        # tests setting an arbitrary attribute to all Components and Groups
         u = make_Universe()
 
         ag, rg, sg = u.atoms[:10], u.residues[:5], u.segments[:3]
@@ -945,6 +940,15 @@ class TestAttributeSetting(object):
 
         for thing in [ag, rg, sg, a, r, s]:
             yield self._check_setattr_fails, thing
+
+    def test_set_atom_residues(self):
+        # setting atom.resnames should fail
+        # resnames is valid, but not for Atom
+        u = make_Universe(('resnames',))
+
+        at = u.atoms[10]
+
+        assert_raises(AttributeError, setattr, at, 'resnames', 'this')
 
     def test_making_subclass_works(self):
         class AwesomeGroup(groups.AtomGroup):
