@@ -24,7 +24,7 @@ env:
     - MAIN_CMD="python ./testsuite/MDAnalysisTests/mda_nosetests --processes=2 --process-timeout=400 --no-open-files --with-timer --timer-top-n 50"
     - SETUP_CMD=""
     - COVERALLS=false
-    - BUILD_CMD="CFLAGS=${ADD_CFLAGS} pip install -v package/ && pip install testsuite/"
+    - BUILD_CMD="OPT=${ADD_CFLAGS} pip install -v package/ && pip install testsuite/"
     - CONDA_DEPENDENCIES="nose=1.3.7 mock six biopython networkx cython joblib nose-timer"
     - CONDA_ALL_DEPENDENCIES="mmtf-python nose=1.3.7 mock six biopython networkx cython joblib nose-timer matplotlib netcdf4 scikit-learn scipy seaborn coveralls clustalw=2.1"
     # Install griddataformats from PIP so that scipy is only installed in the full build (#1147)
