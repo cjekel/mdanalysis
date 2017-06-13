@@ -424,10 +424,10 @@ def test_growriter_resid_truncation():
     u.residues[0].resid = 123456789
     u.atoms.write('out.gro')
 
-    with open('out.gro', 'r') as inf:
-        inf.readline()
-        inf.readline()
-        line = inf.readline()
+    with open('out.gro', 'r') as grofile:
+        grofile.readline()
+        grofile.readline()
+        line = grofile.readline()
     # larger digits should get truncated
     assert_(line.startswith('56789UNK'))
 
