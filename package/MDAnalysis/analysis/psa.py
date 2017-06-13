@@ -593,7 +593,8 @@ def discrete_frechet(P, Q):
     Returns
     -------
     float
-        the discrete Fréchet distance between paths *P* and *Q*
+        the root mean square of discrete Fréchet distances between paths *P* and
+         *Q*
 
     Example
     -------
@@ -620,11 +621,18 @@ def discrete_frechet(P, Q):
     Notes
     -----
 
-    The discrete Fréchet metric is an approximation to the continuous Fréchet
-    metric [Frechet1906]_ [Alt1995]_. The calculation of the continuous
-    Fréchet distance is implemented with the dynamic programming algorithm of
-    [EiterMannila1994]_ [EiterMannila1997]_.
-
+    - The discrete Fréchet metric is an approximation to the continuous Fréchet
+      metric [Frechet1906]_ [Alt1995]_. The calculation of the continuous
+      Fréchet distance is implemented with the dynamic programming algorithm of
+      [EiterMannila1994]_ [EiterMannila1997]_.
+    - When only one atom is considered in *P* and *Q*, discrete_frechet returns
+      the discrete Fréchet distance between *P* and *Q* for the atom.
+    - When two or more atoms are considered, discrete_frechet first calculates
+      `N` discrete Fréchet distances for the `N` atoms. Then discrete_frechet
+      returns the root mean square of the discrete Fréchet distances. E.g.
+      consider two atoms, where the discrete Fréchet for the first atom is 10.0,
+      and 5.0 for the second atom. The function discrete_frechet would return
+      approximately 7.91 because sqrt( ((-10 - 0)**2 + (-5 - 0)**2) / 2) = 7.91.
 
     References
     ----------
